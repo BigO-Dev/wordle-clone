@@ -1,3 +1,7 @@
+@font-face {
+  font-family: 'nyt-karnakcondensed';
+  src: url(karnakcondensed-normal-700.woff2);
+}
 /* CSS Reset */
 *,
 *::before,
@@ -14,9 +18,10 @@ body {
 /* Add your custom styles below this line */
 .header {
   color: #fff;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-weight: 800;
+  font-family: 'nyt-karnakcondensed', Arial, sans-serif;
+  font-weight: 700;
   font-size: 1rem;
+
   height: 65px;
   display: flex;
   justify-content: center;
@@ -30,4 +35,46 @@ body {
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+}
+
+.board {
+  width: 300px;
+  height: 360px;
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  gap: 5px;
+  padding: 10px;
+}
+
+.board__row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+}
+
+.board__tile {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: bold;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+.board__tile {
+  border: 2px solid #3a3a3c;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.board__tile--correct {
+  border: none;
+  background-color: #538d4e;
+}
+
+.board__tile--incorrect {
+  border: none;
+  background-color: #b59f3b;
 }
