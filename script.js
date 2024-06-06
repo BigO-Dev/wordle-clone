@@ -1,53 +1,22 @@
-const tiles = document.querySelectorAll('.board__tile')
+function init() {
+  const tiles = document.querySelectorAll('.board__tile')
+  const row = document.querySelectorAll('.board__row')
 
-let currentGuess = ''
+  let guessedWord = ''
+  let currentIndex = 0
+  let currentTile = tiles[currentIndex]
 
-async function getWord() {
-  const api = 'https://words.dev-apis.com/word-of-the-day'
+  function addLetter(e) {
+    guessedWord += e.key
+    currentTile.innerText = e.key
+    currentIndex++
+    currentTile = tiles[currentIndex]
 
-  const response = await fetch(api)
-  const data = await response.json()
-  const word = data.word
-
-  console.log('Correct word: ', word)
-  return word
-}
-
-function listenForKeys() {
-  window.addEventListener('keydown', (event) => {
-    if (event.key === 'Backspace') {
-      currentGuess = currentGuess.slice(0, -1)
-      updateUI()
-    } else if (event.key === 'Enter') {
-      checkGuess()
-    } else {
-      checkLetter(event.key)
+    if (guessedWord.length === 5) {
+      window.removeEventListener('keydown', addLetter)
     }
-  })
-}
-
-function checkLetter(letter) {
-  // Checks if the key pressed is a letter
-  if (letter.match(/[a-z]/i)) {
-    currentGuess += letter
-    updateUI()
   }
+  window.addEventListener('keydown', addLetter)
 }
 
-function updateUI() {
-  tiles.forEach((tile, index) => {
-    tile.textContent = currentGuess[index] || ''
-  })
-}
-
-async function checkGuess() {
-  let word = await getWord()
-
-  if (currentGuess === word) {
-    console.log('Correct!')
-  } else {
-    console.log('Incorrect!')
-  }
-}
-
-listenForKeys()
+init()
